@@ -1,3 +1,8 @@
+<?php session_start(); include '../phpbasics/DbHandler.php';
+
+$crud = new DbHandler('localhost', 'cooban', 'root', '');
+$_SESSION['login'] = false;
+?>
 <!DOCTYPE html>
 <!--
 Template Name: Cooban
@@ -138,6 +143,35 @@ Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+<!-- PHP -->
+<?php 
+var_dump($_SESSION);
+    $user = $_POST["username"];
+    $password = $_POST["password"];
+    if(ISSET($_POST["submit"])){
+        $sql = "SELECT * FROM `users` WHERE username='". $user ."' AND password='". $password. "'";
+        $res = $crud->readData($sql);
+        foreach ($res as $row){
+            if($row['username'] == $_POST['username'] && $row['password'] == $_POST['password']){
+                echo 'Welkom '. $row['username'];
+                $_SESSION['login'] = true;
+?>
+                <script> document.getElementsById('login').style.display = 'none';</script>
+<?php
+                $_SESSION['role'] = $row['user_rank'];
+                echo $_SESSION['role'];
+            }
+        }
+    }
+    
+    if($_SESSION['login'] == false){
+?>
+<script>document.getElementById('header').innerHTML += "<form action='' method='POST' id='login'><input type='text' name='username' placeholder='Username'/><input type='text' name='password' placeholder='Password'/><input type='submit' name='submit' value='Log in' /></form>"</script>
+<?php
+    }
+    else{
+    }
+?>
 <!-- JAVASCRIPTS -->
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
