@@ -1,3 +1,9 @@
+<?php
+session_start();
+if($_SESSION['role'] != 'Accountmanager'){  
+    exit("Geen rechten");
+}
+?>
 <!DOCTYPE html>
 <!--
 Template Name: Cooban

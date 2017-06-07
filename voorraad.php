@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['role'] != 'Beheerder'){  
+if($_SESSION['role'] != 'Voorraadbeheerder'){ 
     exit("Geen rechten");
 }
 ?>
