@@ -1,4 +1,7 @@
-<?php session_start(); include '../phpbasics/DbHandler.php';
+<?php session_start(); include '/database/DbHandler.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
 $crud = new DbHandler('localhost', 'cooban', 'root', '');
 $_SESSION['login'] = false;
@@ -145,7 +148,6 @@ Licence URI: http://www.os-templates.com/template-terms
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 <!-- PHP -->
 <?php 
-var_dump($_SESSION);
     $user = $_POST["username"];
     $password = $_POST["password"];
     if(ISSET($_POST["submit"])){
@@ -159,7 +161,6 @@ var_dump($_SESSION);
                 <script> document.getElementsById('login').style.display = 'none';</script>
 <?php
                 $_SESSION['role'] = $row['user_rank'];
-                echo $_SESSION['role'];
             }
         }
     }
